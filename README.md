@@ -8,7 +8,7 @@ and manipulating existing SVG file without rasterization.
 
 ```html
 <script src="https://unpkg.com/p5@1.3.1/lib/p5.js"></script>
-<script src="https://unpkg.com/p5.js-svg@1.0.5"></script>
+<script src="https://unpkg.com/p5.js-svg@1.0.7"></script>
 ```
 
 Open your sketch.js and edit it:
@@ -35,7 +35,8 @@ It's \<svg\>!
 
 ## Examples
 
-http://zenozeng.github.io/p5.js-svg/examples/
+- https://zenozeng.github.io/p5.js-svg/examples/
+- https://zenozeng.github.io/p5.js-svg/test/
 
 ## SVG Renderer vs Canvas2D Renderer
 
@@ -67,14 +68,34 @@ p5.js-svg@1.x was tested and should work on:
 ## How it works
 
 p5.RendererSVG is a class which extends p5.Renderer2D.
-I create a mock \<canvas\> element,
-which is JavaScript Object that syncs proprieties to \<svg\>.
-A drawing context is provided,
-it provides most canvas's API but will draw them on \<svg\> element.
+A mocked \<canvas\> element and a CanvasRenderingContext2D api are provided using [svgcanvas](https://github.com/zenozeng/svgcanvas),
+which is JavaScript Object that syncs proprieties and draws on \<svg\> element.
 
 ## Known issue
 
-- blendMode is not implemented yet.
+### Too many child elements
+
+Since SVG is XML-based, every call of the draw function will insert elements into it, and these elements keep existing even if they are not visible. So, long-time running will result in too many child elements. We recommend calling clear() in your draw function, which will trigger internal context.__clearCanvas() to remove elements.
+
+```javascript
+function draw() {
+    clear();
+    // draw
+}
+```
+
+See https://github.com/zenozeng/p5.js-svg/issues/32
+
+### blendMode is not implemented yet.
+
+## Building dist
+
+To build dist files after cloning repo, you can run:
+
+```bash
+npm install
+npm run build
+```
 
 ## Tests
 

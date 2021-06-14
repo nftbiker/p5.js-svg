@@ -1,8 +1,23 @@
-## v1.0.0 (WIP), 2021-06
+## v1.0.7
 
-- refactor: Works with p5.js@1.3.1
+- feat: sync element's width and height to context (svgcanvas@2.0.3), calling clear() in your draw function will now trigger internal context.__clearCanvas() to remove elements.
+- test: add test for loadFont, fixes #147
+
+## v1.0.6
+
+- fix: use encodeURIComponent when saving svg, fixes #176 (save() bug)
+
+## v1.0.5
+
+- feat: implement CanvasTransform Interface, see https://github.com/gliffy/canvas2svg/pull/83, fixes https://github.com/zenozeng/p5.js-svg/issues/170, 
+- refactor: support p5.js@1.3.1, see https://github.com/zenozeng/p5.js-svg/pull/182
 - refactor: ESM
+- refactor: remove loadGraphics
+- fix: keep svgcanvas's root `<g>` when applying filter
 - fix: call _incrementPreload & _decrementPreload in p5.prototype.loadSVG, fixes https://github.com/zenozeng/p5.js-svg/issues/168
+- test: add test for resetMatrix, for https://github.com/zenozeng/p5.js-svg/issues/170
+- test: diff without converting to png
+- test: update IO/saveFrames tests
 
 ## v0.6.0-alpha.0
 
